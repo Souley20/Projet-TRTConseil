@@ -88,12 +88,12 @@ class Candidats
     {
         // unset the owning side of the relation if necessary
         if ($user === null && $this->user !== null) {
-            $this->user->setCandidate(null);
+            $this->user->setCandidats(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($user !== null && $user->getCandidate() !== $this) {
-            $user->setCandidate($this);
+        if ($user !== null && $user->getCandidats() !== $this) {
+            $user->setCandidats($this);
         }
 
         $this->user = $user;

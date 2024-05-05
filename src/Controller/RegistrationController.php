@@ -9,7 +9,7 @@ use App\Entity\Consultants;
 use App\Service\FileUploader;
 use App\Form\RegistrationFormType;
 use App\Security\UserAuthenticator;
-use App\Form\RegistrationFormTypeRecrut;
+use App\Form\RegistrationFormTypeRecruteur;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\RegistrationFormTypeCandidats;
 use App\Form\RegistrationFormTypeConsultants;

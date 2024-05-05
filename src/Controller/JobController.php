@@ -62,7 +62,7 @@ class JobController extends AbstractController
         $recruiter = $user->getRecruiter();
         
         $job = new Job();
-        $job->setRecruiter($recruiter);
+        $job->setRecruteur($recruiter);
         $form = $this->createForm(JobType::class, $job);
         $form->handleRequest($request);
 

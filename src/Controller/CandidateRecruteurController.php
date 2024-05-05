@@ -42,7 +42,7 @@ class CandidateRecruteurController extends AbstractController
     #[Route('/consult', name: 'app_candidats_consult_index', methods: ['GET'])]
     public function indexconsult(CandidatsRepository $candidatsRepository): Response
     {
-        return $this->render('pages/candidats/indexconsult.html.twig', [
+        return $this->render('pages/candidats/indexconsultants.html.twig', [
             'candidates' => $candidatsRepository->findAll(),
         ]);
     }

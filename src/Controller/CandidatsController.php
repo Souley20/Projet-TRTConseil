@@ -114,7 +114,7 @@ class CandidatsController extends AbstractController
 //         if ($form->isSubmitted() && $form->isValid()) {
 //             $candidate = $form->getData();
 
-//             $cv = $candidate->getCv();
+//             $cv = $candidats->getCv();
 
 //             $file = $cv->getFile();
 
