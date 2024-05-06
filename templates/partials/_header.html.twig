@@ -1,0 +1,181 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{ path('home.index')}}"><img src="{{ asset('assets/images/logotrt.png')}}" alt="Logo" style="max-width: 5rem;"></a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('home.index')}}">Accueil
+
+						<span class="visually-hidden">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('readme')}}">Read-me
+						<span class="visually-hidden">(current)</span>
+					</a>
+				</li>
+
+				{% if app.user %}
+					{% if is_granted('ROLE_RECRUTEUR') %}
+						{% if app.user.recruteur == true %}
+
+							<li class="nav-item">
+								<a class="nav-link active" href="{{ path('app_job_new')}}">Créer une annonce
+
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Listes à gérer</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="{{ path('app_jobrecruiter_index')}}">Liste des annonces</a>
+									<a class="dropdown-item" href="{{ path('app_candidaturerecruteur_index')}}">Liste des candidats/candidature</a>
+
+
+								</div>
+							</li>
+						{% endif %}
+
+
+					{% elseif is_granted('ROLE_CANDIDATS')  %}
+						{% if app.user.candidats == true %}
+
+							<li class="nav-item">
+								<a class="nav-link active" href="{{ path('app_jobcandidats_index')}}">Voir les annonces pour postuler
+
+
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="{{ path('app_candidature')}}">Vos candidatures
+
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+
+						{% endif %}
+						{% if app.user.candidats == false %}
+							<li class="nav-item">
+								<a class="nav-link active" href="{{ path('app_candidats_new')}}">Completer son profil
+
+
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+						{% endif %}
+
+
+					{% elseif is_granted('ROLE_CONSULTANTS')  %}
+
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_recruteurtovalid_index')}}">Liste des recruteurs à valider
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_candidaturetovalid_index')}}">Liste des candidats à valider
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_jobtovalid_index')}}">Liste des annonces à valider
+
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_candidature_index')}}">Valider une candidature + email au recruteur
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Listes</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('app_recruteur_index')}}">Liste  des recruteurs
+								</a>
+								<a class="dropdown-item" href="{{ path('app_candidats_consultants_index')}}">Liste des candidats</a>
+
+
+								<a class="dropdown-item" href="{{ path('app_job_index')}}">Liste des annonces</a>
+
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{{ path('app_candidature_index')}}">Valider une candidature + email au recruteur</a>
+
+								{# <div class="dropdown-divider"></div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter mon profil</a> #}
+
+
+							</div>
+						{% endif %}
+					{% endif %}
+
+				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+
+					<li class="nav-item">
+						<a class="nav-link active" href="{{ path('app_register_consultants')}}">Créer un consultant
+
+							<span class="visually-hidden">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="{{ path('app_consultants_index')}}">Liste des consultants
+
+
+							<span class="visually-hidden">(current)</span>
+						</a>
+					</li>
+
+
+				{% endif %}
+
+
+			</ul>
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path ('app_user_show',{'id':app.user.id})}}">Mon compte</a>
+						{# <a class="nav-link" href="#">Mon compte</a> #}
+
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_logout') }}">Me déconnecter</a>
+
+
+					</li>
+				{% else %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inscription</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path ('app_register_candidats')}}">Vous cherchez un job</a>
+
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{ path ('app_register_recruteur')}}">Vous voulez recruter</a>
+
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_login') }}">Me Connecter</a>
+
+
+					</li>
+				{% endif %}
+			</ul>
+
+			{# <form class="d-flex">
+																																																																																																																																																																																																										<input class="form-control me-sm-2" type="text" placeholder="Search">
+																																																																																																																																																																																																										<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+																																																																																																																																																																																																									</form> #}
+		</div>
+	</div>
+</nav>

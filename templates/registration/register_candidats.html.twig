@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Candidat
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Vous cherchez une entreprise idéale, alors inscrivez-vous ici !</h1>
+
+		<div class="mt-4">{{ form_start(registrationForm) }}</div>
+
+		<div class="mt4">{{ form_row(registrationForm.email) }}</div>
+
+		<div class="mt-4 ">{{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de Passe'
+        }) }}</div>
+
+		<div class="mt4">{{ form_row(registrationForm.lastname) }}</div>
+
+		<div class="mt4">{{ form_row(registrationForm.firstname) }}</div>
+		 <div class="mt4">{{ form_row(registrationForm.cvName) }}</div> 
+
+
+		<div class="mt-4">{{ form_row(registrationForm.isRGPD) }}</div>
+
+
+		<button type="submit" class="btn btn-secondary btn-lg mt-4">Enregitrez-vous</button>
+
+		{{ form_end(registrationForm) }}</div>
+
+{% endblock %}
