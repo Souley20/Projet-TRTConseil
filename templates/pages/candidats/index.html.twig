@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des candidats
+{% endblock %}
+
+{% block body %}
+
+
+	<div
+		class="container mt-4">
+		{# {% if is_granted('ROLE_RECRUTEUR')  %} #}
+
+
+		<h1>Liste de vos candidats TODO</h1>
+
+
+		{# {% if candidate.isValided == true %} #}
+
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Réf.</th>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>CvName</th>
+					<th>Validés par TRT</th>
+					<th>email recruteur</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			{{ app.user}}
+			{% for candidate in candidates %}
+				<tbody>
+
+					{% for candidature in candidate.candidatures %}
+
+						{% for job in candidature.jobs %}
+
+
+							{% for recruteur in job.recruteurs %}
+
+								<tr>
+									<td>{{ candidats.id }}</td>
+									<td>{{ candidate.lastname }}</td>
+									<td>{{ candidate.firstname }}</td>
+									<td>{{ candidate.cvName }}</td>
+									<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
+									<td>{{ recruteur.email}}</td>
+									<td>
+										<a href="{{ path('app_candidats_show', {'id': candidats.id}) }}">
+											Voir la candidature</a>
+									</td>
+								</tr>
+							{% endfor %}
+
+						{% endfor %}
+					{% endfor %}
+				</tbody>
+
+			{% endfor %}
+
+			{# <a href="{{ path('app_candidats_edit', {'id': candidats.id}) }}">edit</a> #}
+
+
+		{# {% else %} #}
+			{# <tr>
+																																																																																																																																																		<td colspan="7">no records found</td>
+																																																																																																																																																	</tr> #}
+		</table>{# {% endif %} #}</div>
+{% endblock %}

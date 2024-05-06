@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces
+{% endblock %}
+
+{% block body %}
+
+	{% if app.user %}
+		{% if is_granted('ROLE_CONSULTANTS') %}
+
+			<div class="container mt-4">
+				<h1>Valider un candidat à une annonce</h1>
+				<div>
+					<h2>Voici la liste des candidats à valider</h2>
+				</div>
+				<h3>Un mail sera envoyé automatiquement au recruteur.</h3>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nom du recruteur</th>
+
+							<th>Nom du candidat</th>
+							<th>Nom de l'annonce</th>
+							<th>Etat de validation</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for candidature in candidatures %}
+							<tr>
+								{% if candidature.isValided == 0 %}
+
+									<td>{{ candidature.id }}</td>
+
+									<td>{{ candidature.job.recruteur.user.lastname }}</td>
+
+									<td>{{ candidature.candidate.user.firstname }}</td>
+
+
+									<td>{{ candidature.job.title }}</td>
+
+									<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+
+
+									<td>
+										<a href="{{ path('app_candidature_show', {'id': candidature.id}) }}" class="mt-4">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewbox="0 0 16 16">
+												<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+												<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+											</svg>
+										</a>
+
+
+										<a class="btn btn-success ms-4" href="{{ path('app_candidature_valide', {'id': candidature.id, 'page': app.request.get('page') ? app.request.get('page') : 1}) }}">{{ candidature.isValided ? 'dévalider' : 'valider' }}</a>
+
+
+									</td>
+								{% endif %}
+
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="2">Pas de candidature</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				{# <a href="{{ path('app_candidature_new') }}">Create new</a> #}
+				<div>
+					<h2>Voici la liste des candidats validés</h2>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nom du recruteur</th>
+
+							<th>Nom du candidat</th>
+							<th>Nom de l'annonce</th>
+							<th>Etat de validation</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for candidature in candidatures %}
+							<tr>
+								{% if candidature.isValided == 1 %}
+
+									<td>{{ candidature.id }}</td>
+
+									<td>{{ candidature.job.recruteur.user.lastname }}</td>
+
+
+									<td>{{ candidature.candidate.user.lastname }}</td>
+
+
+									<td>{{ candidature.job.title }}</td>
+
+									<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+
+
+									<td>
+										<a href="{{ path('app_candidature_show', {'id': candidature.id}) }}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewbox="0 0 16 16">
+												<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+												<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+											</svg>
+										</a>
+
+
+										<a class="btn btn-danger ms-4" href="{{ path('app_candidature_valide', {'id': candidature.id, 'page': app.request.get('page') ? app.request.get('page') : 1}) }}">{{ candidature.isValided ? 'dévalider' : 'valider' }}</a>
+
+									</td>
+								{% endif %}
+
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="2">Pas de candidature</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+
+			</div>
+
+		{% elseif is_granted('ROLE_CANDIDATS')  %}
+			<div class="container mt-4">
+				<p>Merci pour votre intérêt. Nous reviendrons vers vous dès l'analyse de votre candidature.</p>
+
+				<a class=" btn btn-secondary btn-lg mt-4" href="{{ path('home.index')}}">Retour à l'accueil</a>
+
+
+			</div>
+
+
+		{% endif %}
+
+	{% endif %}
+
+{% endblock %}

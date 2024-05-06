@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil du candidat
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Profil du candidat</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Réf.</th>
+					<td>{{ candidats.id }}</td>
+				</tr>
+				<tr>
+					<th>Nom</th>
+					<td>{{ candidate.user.lastname }}</td>
+				</tr>
+				<tr>
+					<th>Prénom</th>
+					<td>{{ candidate.user.firstname }}</td>
+				</tr>
+				<tr>
+					<th>CvName</th>
+					<td>{{ candidate.cvName }}</td>
+					{% if candidate.cvName is defined %}
+						<img src="{{ asset('uploads/') }}{{ candidate.cvName }}" alt="">
+						<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidate.cvName }}">Voir le CV du candidat</a>
+
+
+					{% else %}
+						<p>Pas de Cv</p>
+					{% endif %}
+
+				</tr>
+				<tr>
+					<th>Validé par TRT</th>
+					<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
+				</tr>
+				{# <tr>
+																																																																								<th>IsRGPD</th>
+																																																																								<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
+																																																																							</tr> #}
+			</tbody>
+		</table>
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidats_consultants_index') }}">Retour à la liste</a>
+
+
+		{# <a href="{{ path('app_candidats_edit', {'id': candidats.id}) }}">edit</a>
+																														
+																															{{ include('pages/candidats/_delete_form.html.twig') }} #}
+	</div>
+
+{% endblock %}

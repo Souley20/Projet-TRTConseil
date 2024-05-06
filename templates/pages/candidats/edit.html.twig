@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Validation du  profil
+{% endblock %}
+
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Validation du profil-candidat
+			{{ candidate.user.firstname }}
+			{{ candidate.user.lastname }}</h1>
+
+
+		{# {{ include('pages/candidats/_form.html.twig', {'button_label': 'Update'}) }} #}
+		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidats.cvName }}">Voir le CV du candidat</a>
+
+		{{ form_start(form) }}
+
+		{# <div class="form-group d-none">
+																									{{ form_label(form.cvName) }}
+																									{{ form_widget(form.cvName) }}
+																									<div class="form-error">
+																										{{ form_errors(form.cvName) }}
+																									</div>
+																								</div> #}
+
+
+		{{ form_widget(form) }}
+		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>
+
+		{{ form_end(form) }}
+
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('home.index') }}">Retour à l'accueil</a>
+
+
+		{{ include('pages/candidats/_delete_form.html.twig') }}</div>
+
+{% endblock %}

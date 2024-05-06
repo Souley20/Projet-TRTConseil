@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+	<h1>Liste des annonces</h1>
+	{% if is_granted('ROLE_CANDIDATS')  %}
+
+		{% for candidate in candidates %}
+			{% if candidate.isValided == false %}
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Réf.</th>
+							<th>Titre</th>
+							<th>Lieu</th>
+							<th>Description</th>
+							<th>Public</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<div class="container mt-4">
+							<div class="row">
+								{% for job in jobs %}
+									{% if job.isVisible == 1 %}
+
+										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-3">
+											<article class="card border-primary mb-3 " style="max-width: 20rem; height: 30rem;">
+												<div class="card-header bg-secondary">
+													<h1>Annonce N°:
+														{{ job.id}}
+													</h1>
+													{# <iframe width="250" height="100" src="{{ formation.image }} " title="formation" frameborder="0" allowfullscreen></iframe> #}
+												</div>
+												<div class="card-body bg-light">
+
+													<h4 class="card-title">{{ job.title}}
+													</h4>
+													<p class="card-text">{{ job.workPlace }}</p>
+
+
+													<p class="card-text">{{ job.description }}</p>
+
+													<a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidature_new')}}" role="button">Postuler</a>
+
+
+												</div>
+											</article>
+										</div>
+									{% endif %}
+
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+
+				{% endfor %}
+			{% elseif is_granted('ROLE_CONSULTANTS') or is_granted('ROLE_RECRUTEUR') %}
+
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Réf.</th>
+							<th>Titre</th>
+							<th>Lieu</th>
+							<th>Description</th>
+							<th>Public</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<div class="container mt-4">
+							<div class="row">
+
+
+								<h1>Voici la liste des annonces à rendre public</h1>
+
+								{% for job in jobs %}
+									<tr>
+										{% if job.isVisible == 0 %}
+
+											<td>{{ job.id }}</td>
+											<td>{{ job.title }}</td>
+											<td>{{ job.workPlace }}</td>
+											<td>{{ job.description }}</td>
+											<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
+											<td>
+												<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
+												{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
+											</td>
+										{% endif %}
+
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="6">no records found</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						{# <a href="{{ path('app_job_new') }}">Create new</a> #}
+					</tbody>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Réf.</th>
+						<th>Titre</th>
+						<th>Lieu</th>
+						<th>Description</th>
+						<th>Public</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<div class="container mt-4">
+						<div class="row">
+
+
+							<h1>Voici la liste des annonces déjà publiques</h1>
+
+							{% for job in jobs %}
+								<tr>
+									{% if job.isVisible == 1 %}
+
+										<td>{{ job.id }}</td>
+										<td>{{ job.title }}</td>
+										<td>{{ job.workPlace }}</td>
+										<td>{{ job.description }}</td>
+										<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
+										<td>
+											<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
+											{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
+										</td>
+									{% endif %}
+
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="6">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					{# <a href="{{ path('app_job_new') }}">Create new</a> #}
+				</tbody>
+			</div>
+		</div>
+	</div>
+
+</div>{% endif %}</div>{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Liste des annonces</h1>
+		{% if is_granted('ROLE_CANDIDATS')  %}
+
+
+			{% for candidate in candidates %}
+
+
+				{% if app.user.id == candidate.user.id %}
+					{% if app.user.candidate.isValided == false %}
+						<p>Merci d'attendre votre validation. Vous pouvez compléter votre profil.</p>
+					{% endif %}
+				{% endif %}
+				{% if app.user.candidate.isValided == true %}
+					<div class="container mt-4">
+						<div class="row">
+							{% for job in jobs %}
+								{% if job.isVisible == 1 %}
+									{% if app.user.id == candidate.user.id %}
+										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-3">
+											<article class="card border-primary mb-3 " style="max-width: 20rem; height: 30rem;">
+												<div class="card-header bg-secondary">
+													<h1>Annonce N°:
+														{{ job.id}}
+													</h1>
+												</div>
+												<div class="card-body bg-light">
+													<h4 class="card-title">{{ job.title}}
+													</h4>
+													<p class="card-text">{{ job.workPlace }}</p>
+													<p class="card-text">{{ job.description }}</p>
+
+													<a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidatureapplied_new', {'job': job.id})}}" role="button">Postuler</a>
+
+
+												</div>
+											</article>
+										</div>
+									{% endif %}
+
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+
+				{% endif %}
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endblock %}
