@@ -1,4 +1,4 @@
-<<?php
+<?php
 
 namespace App\Controller;
 
@@ -121,7 +121,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register_recruiter.html.twig', [
+        return $this->render('registration/register_recruteur.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

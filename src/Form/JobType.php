@@ -62,8 +62,8 @@ class JobType extends AbstractType
                     'class' => 'd-flex justify-content-between',
                 ],
             ])
-            // ->add('recruiter', EntityType::class, [
-            //     'class'=>Recruiter::class,
+            // ->add('recruteur', EntityType::class, [
+            //     'class'=>Recruteur::class,
             //     'placeholder'=>'Reconfirmer votre nom par rapport à la liste',
             //     'attr' => [
             //         'class' => 'form-control '

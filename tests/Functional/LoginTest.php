@@ -20,7 +20,7 @@ class LoginTest extends WebTestCase
         // Formulaire
 
         $form = $crawler->filter("form[name=login]")->form([
-            "email"=> "admin@trt.fr",
+            "email"=> "admin01@trt.fr",
             "password"=> "azerty"
 
         ]);

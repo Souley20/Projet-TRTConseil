@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/recruteur')]
 class RecruteurController extends AbstractController
 {
-    #[Route('/', name: 'app_recruiter_index', methods: ['GET'])]
+    #[Route('/', name: 'app_recruteur_index', methods: ['GET'])]
     public function index(RecruteurRepository $recruteurRepository): Response
     {
         return $this->render('pages/recruteur/index.html.twig', [
@@ -21,7 +21,7 @@ class RecruteurController extends AbstractController
         ]);
     }
 
-    #[Route('/creation', name: 'app_recruiter_new', methods: ['GET', 'POST'])]
+    #[Route('/creation', name: 'app_recruteur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, RecruteurRepository $recruteurRepository): Response
     {
         $recruteur = new Recruteur();

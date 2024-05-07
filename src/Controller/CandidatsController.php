@@ -34,10 +34,10 @@ class CandidatsController extends AbstractController
         ]);
     }
 
-    #[Route('/consult', name: 'app_candidats_consult_index', methods: ['GET'])]
+    #[Route('/consultant', name: 'app_candidats_consultant_index', methods: ['GET'])]
     public function indexconsult(CandidatsRepository $candidatsRepository): Response
     {
-        return $this->render('pages/candidats/indexconsult.html.twig', [
+        return $this->render('pages/candidats/indexconsultant.html.twig', [
             'candidates' => $candidatsRepository->findAll(),
         ]);
     }

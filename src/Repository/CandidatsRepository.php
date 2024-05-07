@@ -43,7 +43,7 @@ class CandidatsRepository extends ServiceEntityRepository
     /**
     * @return Candidats [] Returns an array of Candidate objects
     */
-   public function findByRecruiter($recruiter): array
+   public function findByRecruteur($recruteur): array
    {
        return $this->createQueryBuilder('c')
            ->join('c.user', 'u') 

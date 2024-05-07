@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Recruiter;
+use App\Entity\Recruteur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
